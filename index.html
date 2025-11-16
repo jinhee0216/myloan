@@ -117,30 +117,33 @@
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbxKCeL5BEMOy6EHNvjw0_vqeMo8DvkeYIZyBXZxxhn8x_gHjRAYep8kC4hgMjEB2f_jdA/exec';
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbxKCeL5BEMOy6EHNvjw0_vqeMo8DvkeYIZyBXZxxhn8x_gHjRAYep8kC4hgMjEB2f_jdA/exec';
 
-    $('#심사양식').on('submit', function(e) {
-      e.preventDefault();
-      const phone1 = $('#phone1').val();
-      const phone2 = $('#phone2').val();
-      const phone3 = $('#phone3').val();
-      const fullPhone = `${phone1}-${phone2}-${phone3}`;
-      $('#fullPhone').val(fullPhone);
+  $('#심사양식').on('submit', function(e) {
+    e.preventDefault();
+    const phone1 = $('#phone1').val();
+    const phone2 = $('#phone2').val();
+    const phone3 = $('#phone3').val();
+    const fullPhone = `${phone1}-${phone2}-${phone3}`;
+    $('#fullPhone').val(fullPhone);
 
-      const formData = $(this).serialize();
-      $('#심사양식').hide();
-      $('#successMessage').removeClass('hidden').show();
+    // 🔽 여기서 site 파라미터 추가
+    let formData = $(this).serialize();
+    formData += '&site=mybizl';
 
-      $.post(GAS_URL, formData)
-        .fail(() => {
-          alert('❌ 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
-        })
-    });
+    $('#심사양식').hide();
+    $('#successMessage').removeClass('hidden').show();
 
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('selectstart', e => e.preventDefault());
-  </script>
+    $.post(GAS_URL, formData)
+      .fail(() => {
+        alert('❌ 제출 중 오류가 발생했습니다. 다시 시도해주세요.');
+      })
+  });
+
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+</script>
 </body>
 </html>
